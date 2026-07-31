@@ -2,8 +2,10 @@
 
 Statische Portfolio-Website für **Nicolai Max Schwarz, B.A. Architektur**.
 
+**Live: https://architekteur.vercel.app**
+
 Kein Build-Schritt, kein Framework, keine externen Abhängigkeiten zur Laufzeit.
-Reines HTML, CSS und rund 40 Zeilen JavaScript.
+Reines HTML, CSS und rund 50 Zeilen JavaScript.
 
 > **Du möchtest die Seite online stellen oder Inhalte ändern?**
 > → [`ANLEITUNG.md`](ANLEITUNG.md) — Schritt-für-Schritt und ohne Vorkenntnisse.

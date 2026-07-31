@@ -5,75 +5,51 @@ Du brauchst nichts zu installieren. Alles läuft im Browser.
 
 ---
 
-## Teil 1 — Website mit Vercel online stellen
+## Teil 1 — Die Website ist bereits online ✅
 
-**Zeitaufwand: etwa 5 Minuten. Kosten: 0 €** (Vercel ist für private Projekte
-wie dieses kostenlos.)
+**Hier musst du nichts mehr tun.** Dein GitHub-Konto war schon mit Vercel
+verbunden. In dem Moment, in dem der Code hochgeladen wurde, hat Vercel die
+Seite automatisch veröffentlicht.
 
-### Schritt 1 — Bei Vercel anmelden
-
-1. Gehe auf **https://vercel.com**
-2. Klicke oben rechts auf **Sign Up** (oder **Login**, falls du schon ein Konto hast)
-3. Wähle **Continue with GitHub**
-4. GitHub fragt, ob Vercel auf deine Projekte zugreifen darf → **Authorize**
-
-### Schritt 2 — Projekt hinzufügen
-
-1. Du landest auf dem Vercel-Dashboard. Klicke auf **Add New…** → **Project**
-2. In der Liste **Import Git Repository** suchst du **`architekteur`**
-3. Klicke daneben auf **Import**
-
-> Falls `architekteur` nicht in der Liste auftaucht:
-> Klicke auf **Adjust GitHub App Permissions**, wähle das Repository
-> `architekteur` aus und speichere. Danach erscheint es in der Liste.
-
-### Schritt 3 — Einstellungen prüfen
-
-Vercel zeigt dir jetzt einen Bildschirm mit Einstellungen. Du musst **nichts**
-ändern — nur eines prüfen:
-
-- **Framework Preset**: sollte auf `Other` stehen. Falls dort etwas anderes
-  steht, stelle es auf `Other` um.
-- **Build Command**, **Output Directory**, **Install Command**:
-  alle leer lassen. Diese Website braucht keinen Build-Vorgang.
-
-### Schritt 4 — Richtigen Branch auswählen ⚠️ WICHTIG
-
-Der Code liegt aktuell auf einem Zweig (englisch: *Branch*) namens:
-
-```
-claude/nicolai-schwarz-portfolio-6eyc90
-```
-
-Damit Vercel diesen Zweig veröffentlicht, gibt es zwei Wege:
-
-**Weg A — Branch in Vercel auswählen (schnell)**
-
-Direkt im Import-Bildschirm gibt es ganz oben ein Auswahlfeld mit dem
-Branch-Namen. Wähle dort `claude/nicolai-schwarz-portfolio-6eyc90` aus.
-
-Falls du das erst nach dem Import merkst:
-Vercel → dein Projekt → **Settings** → **Git** → **Production Branch** →
-`claude/nicolai-schwarz-portfolio-6eyc90` eintragen → **Save**.
-Danach unter **Deployments** einmal **Redeploy** klicken.
-
-**Weg B — Code auf `main` zusammenführen (sauberer auf Dauer)**
-
-Auf GitHub im Repository `architekteur`:
-**Pull requests** → **New pull request** → von
-`claude/nicolai-schwarz-portfolio-6eyc90` nach `main` → **Create** → **Merge**.
-Danach findet Vercel den Code automatisch auf `main`.
-
-### Schritt 5 — Deploy
-
-Klicke auf **Deploy**. Nach etwa 30 Sekunden erscheint eine Erfolgsmeldung
-mit einer Adresse wie:
+**Deine Adresse:**
 
 ```
 https://architekteur.vercel.app
 ```
 
-Diese Adresse kannst du sofort teilen. **Fertig.**
+Die kannst du sofort teilen — sie funktioniert auf Handy, Tablet und Rechner
+und hat ein gültiges HTTPS-Zertifikat (das Schloss-Symbol im Browser).
+
+### Geprüft und in Ordnung
+
+| Seite      | Adresse                                            |
+| ---------- | -------------------------------------------------- |
+| Profil     | `architekteur.vercel.app`                          |
+| Projekt 01 | `architekteur.vercel.app/projekt-1-gut-melb`       |
+| Projekt 02 | `architekteur.vercel.app/projekt-2-kunsthof`       |
+| Projekt 03 | `architekteur.vercel.app/projekt-3`                |
+| Projekt 04 | `architekteur.vercel.app/projekt-4`                |
+| Kontakt    | `architekteur.vercel.app/kontakt`                  |
+
+### Wo finde ich das Ganze bei Vercel?
+
+1. Gehe auf **https://vercel.com** und melde dich mit **GitHub** an
+2. Im Dashboard siehst du das Projekt **architekteur**
+3. Ein Klick darauf zeigt dir alle bisherigen Veröffentlichungen
+   (Reiter **Deployments**)
+
+Falls du dort einmal nachsehen musst, wie das Projekt eingestellt ist —
+so sollte es aussehen:
+
+- **Framework Preset**: `Other`
+- **Build Command**, **Output Directory**, **Install Command**: leer
+- **Production Branch**: `claude/nicolai-schwarz-portfolio-6eyc90`
+
+> **Zum Hintergrund:** Der Code liegt auf einem Zweig (englisch: *Branch*)
+> namens `claude/nicolai-schwarz-portfolio-6eyc90`. Weil das gleichzeitig der
+> Hauptzweig des Repositorys ist, veröffentlicht Vercel ihn automatisch.
+> Du kannst den Zweig später umbenennen (GitHub → **Settings** → **Branches**),
+> musst aber nicht. Es funktioniert so, wie es ist.
 
 ---
 
@@ -102,9 +78,9 @@ innerhalb von etwa 30 Sekunden neu. Du musst nichts weiter tun.
 
 ### Text ändern
 
-1. Auf GitHub das Repository `architekteur` öffnen
-2. Oben den richtigen Branch auswählen (siehe Schritt 4)
-3. Die passende Datei anklicken:
+1. Auf GitHub das Repository `architekteur` öffnen:
+   https://github.com/KingGebbo/Architekteur
+2. Die passende Datei anklicken:
 
    | Was du ändern willst          | Datei                       |
    | ----------------------------- | --------------------------- |
@@ -116,16 +92,16 @@ innerhalb von etwa 30 Sekunden neu. Du musst nichts weiter tun.
    | Kontakt, Impressum            | `kontakt.html`              |
    | Farben, Schrift, Abstände     | `assets/css/style.css`      |
 
-4. Rechts oben auf das **Stift-Symbol** klicken (Bearbeiten)
-5. Text ändern. **Wichtig:** nur den Text zwischen den spitzen Klammern
+3. Rechts oben auf das **Stift-Symbol** klicken (Bearbeiten)
+4. Text ändern. **Wichtig:** nur den Text zwischen den spitzen Klammern
    ändern, die Klammern selbst stehen lassen.
 
    ```html
    <h3>Kreativ</h3>          ← nur das Wort „Kreativ" ändern
    ```
 
-6. Runterscrollen, auf **Commit changes** klicken → nochmal **Commit changes**
-7. Warte 30 Sekunden, lade die Website neu — die Änderung ist da.
+5. Runterscrollen, auf **Commit changes** klicken → nochmal **Commit changes**
+6. Warte 30 Sekunden, lade die Website neu — die Änderung ist da.
 
 ### Bild austauschen
 
@@ -204,7 +180,6 @@ ein Portfolio zur Jobsuche in der Regel — eine ladungsfähige Anschrift.
 
 | Problem                              | Ursache und Lösung                                                                                     |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| Vercel zeigt „404 Not Found"          | Falscher Branch. Siehe Schritt 4.                                                                        |
 | Änderung ist nicht sichtbar           | 1 Minute warten. Dann Browser hart neu laden: `Strg`+`F5` (Windows) bzw. `Cmd`+`Shift`+`R` (Mac).        |
 | Ein Bild wird nicht angezeigt         | Dateiname stimmt nicht exakt. Groß-/Kleinschreibung zählt: `Bild.JPG` ist nicht `bild.jpg`.               |
 | Seite sieht „kaputt" aus              | Beim Bearbeiten wurde vermutlich eine spitze Klammer gelöscht. Auf GitHub unter **History** die letzte Änderung rückgängig machen. |
