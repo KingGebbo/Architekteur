@@ -14,15 +14,16 @@ Reines HTML, CSS und rund 50 Zeilen JavaScript.
 
 ## Seitenstruktur
 
-| Seite      | Datei                     |
-| ---------- | ------------------------- |
-| Profil     | `index.html`              |
-| Projekt 01 | `projekt-1-gut-melb.html` |
-| Projekt 02 | `projekt-2-kunsthof.html` |
-| Projekt 03 | `projekt-3.html`          |
-| Projekt 04 | `projekt-4.html`          |
-| Kontakt    | `kontakt.html`            |
-| 404        | `404.html`                |
+| Seite      | Datei                        | Inhalt                          |
+| ---------- | ---------------------------- | ------------------------------- |
+| Profil     | `index.html`                 | vollständig                     |
+| Projekt 01 | `projekt-1-gut-melb.html`    | vollständig                     |
+| Projekt 02 | `projekt-2-kunsthof.html`    | vollständig                     |
+| Projekt 03 | `projekt-3-knitthotel.html`  | vollständig                     |
+| Projekt 04 | `projekt-4.html`             | Platzhalter                     |
+| Projekt 05 | `projekt-5.html`             | Platzhalter                     |
+| Kontakt    | `kontakt.html`               | inkl. Impressum und Datenschutz |
+| 404        | `404.html`                   | —                               |
 
 ## Ordner
 
@@ -32,8 +33,9 @@ assets/
   js/site.js           Scroll-Reveal, Nav-Position auf Mobil
   fonts/               Archivo als woff2, selbst gehostet
   img/profil/          Porträt und Freihandzeichnungen
-  img/gut-melb/        Projekt 01
-  img/kunsthof/        Projekt 02 (Platzhalter)
+  img/gut-melb/        Projekt 01 — Gut Melb
+  img/kunsthof/        Projekt 02 — Kunsthof
+  img/knitthotel/      Projekt 03 — Knitthotel
   favicon.svg          Signet, Bordeaux mit „NS"
 ```
 
@@ -107,6 +109,12 @@ Entwicklung eines gemeinwohlorientierten Zentrums" von Nicolai Max Schwarz,
 Lena Teresa Stadtfeld und Luis Valentin Bongardt, Alanus Hochschule für Kunst
 und Gesellschaft, 2026.
 
-Projekt 02 basiert auf der Projektbeschreibung „Kunsthof — Rudolf-Steiner-Schule
-Dortmund" von Luis Bongardt, Sarah Neidhold-Lizarraga und Nicolai Schwarz,
-Modul BA 3.5.1, HS 2025/26. Bildmaterial folgt.
+Projekt 02: „Kunsthof — Rudolf-Steiner-Schule Dortmund" von Luis Bongardt,
+Sarah Neidhold-Lizarraga und Nicolai Schwarz, Modul BA 3.5.1 — Technischer
+Ausbau & energieeffizientes Bauen, HS 2025/26. Betreuung: Prof. Swen Geiss,
+M.A. Anna Marschenko.
+
+Projekt 03: „Knitthotel — Bergische Kaserne", Modul BA 3.3.2 Entwurfsatelier III,
+HS 2024/25. Betreuung: Prof. Benedikt Stahl, M.A. Avila Dietrich. Team: Deborah
+Filipa Moreira Freitas, Luis Bongardt, Maria Nickenig, Martin Behrendt, Nicolai
+Schwarz, Sarah Becker.

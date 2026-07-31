@@ -27,8 +27,9 @@ und hat ein gültiges HTTPS-Zertifikat (das Schloss-Symbol im Browser).
 | Profil     | `architekteur.vercel.app`                          |
 | Projekt 01 | `architekteur.vercel.app/projekt-1-gut-melb`       |
 | Projekt 02 | `architekteur.vercel.app/projekt-2-kunsthof`       |
-| Projekt 03 | `architekteur.vercel.app/projekt-3`                |
+| Projekt 03 | `architekteur.vercel.app/projekt-3-knitthotel`     |
 | Projekt 04 | `architekteur.vercel.app/projekt-4`                |
+| Projekt 05 | `architekteur.vercel.app/projekt-5`                |
 | Kontakt    | `architekteur.vercel.app/kontakt`                  |
 
 ### Wo finde ich das Ganze bei Vercel?
@@ -87,8 +88,9 @@ innerhalb von etwa 30 Sekunden neu. Du musst nichts weiter tun.
    | Startseite / Profil           | `index.html`                |
    | Projekt 1, Gut Melb           | `projekt-1-gut-melb.html`   |
    | Projekt 2, Kunsthof           | `projekt-2-kunsthof.html`   |
-   | Projekt 3 (Platzhalter)       | `projekt-3.html`            |
+   | Projekt 3, Knitthotel         | `projekt-3-knitthotel.html` |
    | Projekt 4 (Platzhalter)       | `projekt-4.html`            |
+   | Projekt 5 (Platzhalter)       | `projekt-5.html`            |
    | Kontakt, Impressum            | `kontakt.html`              |
    | Farben, Schrift, Abstände     | `assets/css/style.css`      |
 
@@ -123,56 +125,41 @@ Alle Bilder liegen im Ordner `assets/img/`. Ein Bild ersetzt du so:
 
 ## Teil 4 — Was noch zu tun ist
 
-Diese Punkte sind bewusst als Platzhalter angelegt und warten auf deine Inhalte:
+### 1. Freihandzeichnungen hochladen ⚠️
 
-### 1. Freihandzeichnungen auf der Startseite
+Die beiden Zeichnungen sind bisher nur als Chat-Vorschau angekommen, nicht als
+Datei. Auf der Startseite stehen deshalb noch zwei graue Platzhalter.
 
-Zwei Platzhalter im Abschnitt „Zeichnen als Denkform":
+So tauschst du sie aus:
 
-- `assets/img/profil/zeichnung-01.svg`
-- `assets/img/profil/zeichnung-02.svg`
+1. Auf GitHub in den Ordner `assets/img/profil/` gehen
+2. **Add file** → **Upload files**
+3. Die Zeichnungen hochladen, benannt als:
+   - `zeichnung-01.jpg` — die Tuschezeichnung „Never Stop Exploring“
+   - `zeichnung-02.jpg` — die Pagode am Wasser
+4. **Commit changes**
+5. Danach in `index.html` an zwei Stellen die Endung ändern:
+   `zeichnung-01.svg` → `zeichnung-01.jpg` und
+   `zeichnung-02.svg` → `zeichnung-02.jpg`
 
-Lade deine Zeichnungen als `zeichnung-01.jpg` und `zeichnung-02.jpg` in den
-Ordner `assets/img/profil/` hoch. Danach in `index.html` die beiden Stellen
-`zeichnung-01.svg` → `zeichnung-01.jpg` und `zeichnung-02.svg` →
-`zeichnung-02.jpg` ändern.
+Die Bildunterschriften sind bereits passend hinterlegt. Tipp: die Zeichnungen
+vor dem Hochladen gerade beschneiden — also nur das Blatt, ohne Tisch, Stift
+und Radiergummi drumherum.
 
-### 2. Bilder für Projekt 2 (Kunsthof)
+### 2. Projekt 4 und Projekt 5
 
-Zum Kunsthof lag nur der Text vor, keine Pläne oder Fotos. Sechs Platzhalter
-warten in `assets/img/kunsthof/`:
-
-| Datei                  | Gedacht für           |
-| ---------------------- | --------------------- |
-| `hero.svg`             | Leitbild / Titelbild  |
-| `platzhalter-01.svg`   | Lageplan              |
-| `platzhalter-02.svg`   | Grundriss             |
-| `platzhalter-03.svg`   | Schnitt               |
-| `platzhalter-04.svg`   | Außenperspektive      |
-| `platzhalter-05.svg`   | Innenraum             |
-| `platzhalter-06.svg`   | Konstruktionsdetail   |
-
-Vorgehen wie bei den Zeichnungen: Bild hochladen, dann in
-`projekt-2-kunsthof.html` die Dateinamen anpassen.
-
-### 3. Projekt 3 und Projekt 4
-
-Beide Seiten stehen als Gerüst bereit (`projekt-3.html`, `projekt-4.html`).
-Am einfachsten: den Aufbau von `projekt-2-kunsthof.html` kopieren und die
+Beide Seiten stehen als Gerüst bereit (`projekt-4.html`, `projekt-5.html`).
+Am einfachsten: den Aufbau von `projekt-3-knitthotel.html` kopieren und die
 Texte ersetzen.
 
-### 4. Impressum vervollständigen ⚠️
+### 3. Modulnummer beim Knitthotel prüfen
 
-In `kontakt.html` steht im Abschnitt Impressum noch:
-
-```
-[Straße und Hausnummer]
-[PLZ und Ort]
-```
-
-**Das solltest du vor dem Teilen der Seite ausfüllen.** In Deutschland
-verlangt § 5 DDG (früher TMG) bei geschäftsmäßigen Websites — und dazu zählt
-ein Portfolio zur Jobsuche in der Regel — eine ladungsfähige Anschrift.
+In der Dokumentation stehen zwei verschiedene Angaben: die zweite Seite nennt
+„BA 3.4.2 Entwurfsatelier IV, 4. Semester“, das Impressum auf der letzten Seite
+„BA 3.3.2 Entwurfsatelier III, HS 2024/2025, 3. Semester“. Auf der Website steht
+die Angabe aus dem Impressum, weil sie zur Aufgabenstellung im Dokument passt.
+Falls das doch anders war: in `projekt-3-knitthotel.html` an zwei Stellen
+korrigieren (Faktenblatt oben und Nachweise unten).
 
 ---
 

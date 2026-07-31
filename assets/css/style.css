@@ -427,9 +427,13 @@ figure img {
   object-fit: cover;
   background: var(--fill);
 }
-/* Platzhalterbilder nicht anschneiden */
-figure img[src$='.svg'] {
+/* Platzhalter und Diagramme nicht anschneiden */
+figure img[src$='.svg'],
+figure img.fit-contain {
   object-fit: contain;
+}
+figure img.fit-contain {
+  background: var(--surface);
 }
 figcaption {
   font-size: var(--fs-micro);
