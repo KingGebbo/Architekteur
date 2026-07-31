@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Platzhalter Leitbild Kunsthof">
+  <rect width="1600" height="1000" fill="#E7E4E0"/>
+  <text x="800.0" y="483.0" text-anchor="middle" fill="#9C9893"
+        font-family="Archivo, Helvetica, Arial, sans-serif" font-size="42"
+        font-weight="500" letter-spacing="8.4">KUNSTHOF</text>
+  <text x="800.0" y="563.0" text-anchor="middle" fill="#B4B0AB"
+        font-family="Archivo, Helvetica, Arial, sans-serif" font-size="29"
+        font-weight="400" letter-spacing="1.2">Bild folgt</text>
+</svg>
