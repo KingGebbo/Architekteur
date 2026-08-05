@@ -482,6 +482,9 @@ figcaption {
 .ratio-4x5 {
   aspect-ratio: 4 / 5;
 }
+.ratio-3x4 {
+  aspect-ratio: 3 / 4;
+}
 .ratio-1x1 {
   aspect-ratio: 1 / 1;
 }
