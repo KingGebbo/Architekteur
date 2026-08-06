@@ -36,7 +36,7 @@ assets/
   img/gut-melb/        Projekt 01 — Gut Melb
   img/kunsthof/        Projekt 02 — Kunsthof
   img/knitthotel/      Projekt 03 — Knitthotel
-  favicon.svg          Signet, Bordeaux mit „N.S.", abgerundet
+  favicon.svg          Signet, Bordeaux mit „N·S", abgerundet
 ```
 
 ## Corporate Design
@@ -47,7 +47,7 @@ Umgesetzt nach dem Style Guide „Nicolai Max Schwarz — Corporate Design, v1.0
 Trennlinie als Achse, darunter „B.A. ARCHITEKTUR" mit 0,42 em.
 
 **Signet** — Entwurf D, angepasst: abgerundetes Quadrat in Bordeaux mit
-„N.S." in Weiß. Wird als Browser-Tab-Symbol verwendet (`favicon.svg` sowie
+„N·S" in Weiß. Wird als Browser-Tab-Symbol verwendet (`favicon.svg` sowie
 PNG-Fallbacks). Die Buchstaben liegen als Pfade vor, damit das Signet ohne
 installierte Schrift überall gleich aussieht.
 
