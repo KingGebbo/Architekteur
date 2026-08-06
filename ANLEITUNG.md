@@ -29,7 +29,7 @@ und hat ein gültiges HTTPS-Zertifikat (das Schloss-Symbol im Browser).
 | Projekt 02 | `architekteur.vercel.app/projekt-2-kunsthof`       |
 | Projekt 03 | `architekteur.vercel.app/projekt-3-knitthotel`     |
 | Projekt 04 | `architekteur.vercel.app/projekt-4`                |
-| Projekt 05 | `architekteur.vercel.app/projekt-5`                |
+| Kunst      | `architekteur.vercel.app/kunst`                    |
 | Kontakt    | `architekteur.vercel.app/kontakt`                  |
 
 ### Wo finde ich das Ganze bei Vercel?
@@ -90,7 +90,7 @@ innerhalb von etwa 30 Sekunden neu. Du musst nichts weiter tun.
    | Projekt 2, Kunsthof           | `projekt-2-kunsthof.html`   |
    | Projekt 3, Knitthotel         | `projekt-3-knitthotel.html` |
    | Projekt 4 (Platzhalter)       | `projekt-4.html`            |
-   | Projekt 5 (Platzhalter)       | `projekt-5.html`            |
+   | Kunst, persönliche Arbeiten   | `kunst.html`                |
    | Kontakt, Impressum            | `kontakt.html`              |
    | Farben, Schrift, Abstände     | `assets/css/style.css`      |
 
@@ -157,9 +157,13 @@ So sieht ein ausgefülltes Werk aus:
   <div><dt>Jahr</dt><dd>2024</dd></div>
   <div><dt>Technik</dt><dd>Acryl und Kohle</dd></div>
   <div><dt>Material</dt><dd>Leinwand auf Keilrahmen</dd></div>
-  <div><dt>Maße</dt><dd>100 × 70 cm</dd></div>
+  <div><dt>Maẞe</dt><dd>100 × 70 cm</dd></div>
 </dl>
 ```
+
+> Das große „Maẞe“ mit dem Eszett ist kein Tippfehler: Die Beschriftungen
+> werden automatisch in Großbuchstaben gesetzt, und ein normales „ß“ würde
+> dabei zu „MASSE“ werden. Bitte so stehen lassen.
 
 **Mehr oder weniger Bilder pro Werk**
 
@@ -176,11 +180,10 @@ So sieht ein ausgefülltes Werk aus:
 angeschnitten. Fotografiere frontal und beschneide auf das Werk selbst, ohne
 Wand und Rahmen drumherum. 1500–2500 Pixel an der langen Kante genügen.
 
-### 2. Projekt 4 und Projekt 5
+### 2. Projekt 4
 
-Beide Seiten stehen als Gerüst bereit (`projekt-4.html`, `projekt-5.html`).
-Am einfachsten: den Aufbau von `projekt-3-knitthotel.html` kopieren und die
-Texte ersetzen.
+Die Seite steht als Gerüst bereit (`projekt-4.html`). Am einfachsten: den
+Aufbau von `projekt-3-knitthotel.html` kopieren und die Texte ersetzen.
 
 ### 3. Modulnummer beim Knitthotel prüfen
 

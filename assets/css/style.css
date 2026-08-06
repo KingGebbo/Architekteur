@@ -387,13 +387,25 @@ strong {
   background: var(--ink);
   color: var(--surface);
 }
+/* Bleibt in der letzten Zeile ein Feld allein, füllt es die ganze Breite —
+   sonst klafft dort eine graue Lücke. */
+.grid--2 > *:last-child:nth-child(odd),
+.grid--3 > *:last-child:nth-child(3n + 1),
+.grid--4 > *:last-child:nth-child(4n + 1) {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 900px) {
   .grid--3,
   .grid--4 {
     grid-template-columns: repeat(2, 1fr);
   }
-  /* Genau drei Kästen: der dritte füllt die Zeile, sonst bleibt eine Lücke */
-  .grid--3 > .cell:nth-child(3):last-child {
+  .grid--3 > *:last-child:nth-child(3n + 1),
+  .grid--4 > *:last-child:nth-child(4n + 1) {
+    grid-column: auto;
+  }
+  .grid--3 > *:last-child:nth-child(odd),
+  .grid--4 > *:last-child:nth-child(odd) {
     grid-column: 1 / -1;
   }
 }

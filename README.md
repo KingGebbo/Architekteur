@@ -21,7 +21,6 @@ Reines HTML, CSS und rund 50 Zeilen JavaScript.
 | Projekt 02 | `projekt-2-kunsthof.html`    | vollständig                     |
 | Projekt 03 | `projekt-3-knitthotel.html`  | vollständig                     |
 | Projekt 04 | `projekt-4.html`             | Platzhalter                     |
-| Projekt 05 | `projekt-5.html`             | Platzhalter                     |
 | Kunst      | `kunst.html`                 | Gerüst, Werke folgen            |
 | Kontakt    | `kontakt.html`               | inkl. Impressum und Datenschutz |
 | 404        | `404.html`                   | —                               |
@@ -37,7 +36,7 @@ assets/
   img/gut-melb/        Projekt 01 — Gut Melb
   img/kunsthof/        Projekt 02 — Kunsthof
   img/knitthotel/      Projekt 03 — Knitthotel
-  favicon.svg          Signet, Bordeaux mit „NS"
+  favicon.svg          Signet, Bordeaux mit „N.S.", abgerundet
 ```
 
 ## Corporate Design
@@ -47,8 +46,10 @@ Umgesetzt nach dem Style Guide „Nicolai Max Schwarz — Corporate Design, v1.0
 **Logo** — Entwurf A: Wortmarke „N. SCHWARZ", zentriert, Sperrung 0,34 em,
 Trennlinie als Achse, darunter „B.A. ARCHITEKTUR" mit 0,42 em.
 
-**Signet** — Entwurf D: Quadrat in Bordeaux mit „NS" in Weiß. Wird als
-Browser-Tab-Symbol verwendet (`favicon.svg` sowie PNG-Fallbacks).
+**Signet** — Entwurf D, angepasst: abgerundetes Quadrat in Bordeaux mit
+„N.S." in Weiß. Wird als Browser-Tab-Symbol verwendet (`favicon.svg` sowie
+PNG-Fallbacks). Die Buchstaben liegen als Pfade vor, damit das Signet ohne
+installierte Schrift überall gleich aussieht.
 
 **Farben**
 
