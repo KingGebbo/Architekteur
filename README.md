@@ -1,6 +1,6 @@
-# Nicolai Max Schwarz — Portfolio
+# Nicolai Schwarz — Portfolio
 
-Statische Portfolio-Website für **Nicolai Max Schwarz, B.A. Architektur**.
+Statische Portfolio-Website für **Nicolai Schwarz, B.A. Architektur**.
 
 **Live: https://architekteur.vercel.app**
 
