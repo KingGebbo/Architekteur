@@ -567,6 +567,23 @@ figcaption {
   max-width: 26ch;
   text-wrap: pretty;
 }
+/* Grosses Zitat unterhalb einer Bildreihe */
+.quote--big {
+  margin-top: 56px;
+  padding-left: 36px;
+}
+.quote--big p {
+  font-size: var(--fs-h2);
+  line-height: 1.32;
+  max-width: 32ch;
+}
+@media (max-width: 760px) {
+  .quote--big {
+    margin-top: 40px;
+    padding-left: 24px;
+  }
+}
+
 .quote cite {
   display: block;
   margin-top: 18px;
