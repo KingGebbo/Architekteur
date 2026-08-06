@@ -392,6 +392,10 @@ strong {
   .grid--4 {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* Genau drei Kästen: der dritte füllt die Zeile, sonst bleibt eine Lücke */
+  .grid--3 > .cell:nth-child(3):last-child {
+    grid-column: 1 / -1;
+  }
 }
 @media (max-width: 560px) {
   .grid--2,
