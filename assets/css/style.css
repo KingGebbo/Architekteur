@@ -725,6 +725,56 @@ figcaption {
   border-bottom-color: var(--accent);
 }
 
+/* --- Hover: Bilder und Kästen reagieren ----------------------------------- */
+/* Nur auf Geräten mit echtem Zeiger — auf Touch bliebe der Zustand hängen. */
+@media (hover: hover) and (pointer: fine) {
+  /* Bilder: der Rahmen bleibt, das Bild zoomt darin. */
+  figure {
+    overflow: hidden;
+  }
+  figcaption {
+    position: relative;
+    z-index: 1; /* deckt das nach unten laufende Bild ab */
+  }
+  figure img {
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  figure:hover img {
+    transform: scale(1.03);
+  }
+  /* Platzhalter-Kacheln bleiben ruhig */
+  .projcard--soon figure:hover img {
+    transform: none;
+  }
+
+  /* Textkästen: leichtes Anheben statt Zoom-Schnitt. */
+  .cell,
+  .factsheet div {
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+      box-shadow 0.35s ease;
+  }
+  .cell:hover,
+  .factsheet div:hover {
+    transform: scale(1.02);
+    z-index: 1;
+    box-shadow: 0 12px 32px rgba(10, 10, 10, 0.1);
+  }
+  .cell--dark:hover {
+    box-shadow: 0 12px 32px rgba(10, 10, 10, 0.28);
+  }
+
+  /* Schlagworte (Software, Handwerk, Sprachen) */
+  .tag {
+    transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1),
+      border-color 0.28s ease;
+  }
+  .tag:hover {
+    transform: scale(1.06);
+    border-color: var(--gray-400);
+  }
+}
+
 /* --- Bewegung: zurückhaltend --------------------------------------------- */
 .reveal {
   opacity: 0;
@@ -747,7 +797,15 @@ figcaption {
     transition: none;
   }
   .projcard img,
-  .projcard:hover img {
+  .projcard:hover img,
+  figure img,
+  figure:hover img,
+  .cell,
+  .cell:hover,
+  .factsheet div,
+  .factsheet div:hover,
+  .tag,
+  .tag:hover {
     transition: none;
     transform: none;
   }
