@@ -22,6 +22,7 @@ Reines HTML, CSS und rund 50 Zeilen JavaScript.
 | Projekt 03 | `projekt-3-knitthotel.html`  | vollständig                     |
 | Projekt 04 | `projekt-4.html`             | Platzhalter                     |
 | Projekt 05 | `projekt-5.html`             | Platzhalter                     |
+| Kunst      | `kunst.html`                 | Gerüst, Werke folgen            |
 | Kontakt    | `kontakt.html`               | inkl. Impressum und Datenschutz |
 | 404        | `404.html`                   | —                               |
 

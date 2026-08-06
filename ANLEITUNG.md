@@ -125,26 +125,56 @@ Alle Bilder liegen im Ordner `assets/img/`. Ein Bild ersetzt du so:
 
 ## Teil 4 — Was noch zu tun ist
 
-### 1. Freihandzeichnungen hochladen ⚠️
+### 1. Kunstwerke ergänzen ⚠️
 
-Die beiden Zeichnungen sind bisher nur als Chat-Vorschau angekommen, nicht als
-Datei. Auf der Startseite stehen deshalb noch zwei graue Platzhalter.
+Die Seite **Kunst** (`kunst.html`) steht fertig da, mit drei grauen Platzhaltern.
+Jedes Werk besteht aus einem großen Bild links und den Angaben rechts daneben.
 
-So tauschst du sie aus:
+**Schritt 1 — Bilder hochladen**
 
-1. Auf GitHub in den Ordner `assets/img/profil/` gehen
+1. Auf GitHub in den Ordner `assets/img/kunst/` gehen
 2. **Add file** → **Upload files**
-3. Die Zeichnungen hochladen, benannt als:
-   - `zeichnung-01.jpg` — die Tuschezeichnung „Never Stop Exploring“
-   - `zeichnung-02.jpg` — die Pagode am Wasser
+3. Die Fotos hochladen. Benenne sie am besten durchnummeriert und ohne
+   Umlaute, z. B. `werk-01-haupt.jpg`, `werk-01-detail.jpg`, `werk-02-haupt.jpg`
 4. **Commit changes**
-5. Danach in `index.html` an zwei Stellen die Endung ändern:
-   `zeichnung-01.svg` → `zeichnung-01.jpg` und
-   `zeichnung-02.svg` → `zeichnung-02.jpg`
 
-Die Bildunterschriften sind bereits passend hinterlegt. Tipp: die Zeichnungen
-vor dem Hochladen gerade beschneiden — also nur das Blatt, ohne Tisch, Stift
-und Radiergummi drumherum.
+**Schritt 2 — Angaben eintragen**
+
+In `kunst.html` steht pro Werk ein Block. Du änderst darin nur vier Dinge:
+
+- `assets/img/kunst/platzhalter-werk.svg` → deinen Bildpfad, z. B.
+  `assets/img/kunst/werk-01-haupt.jpg`
+- `<h2>Titel folgt</h2>` → der Titel des Werks
+- die vier Zeilen `<dd>folgt</dd>` → Jahr, Technik, Material, Maße
+- den `alt="…"`-Text → eine kurze Beschreibung des Bildes (für Blinde und
+  für Google)
+
+So sieht ein ausgefülltes Werk aus:
+
+```html
+<h2>Ohne Titel</h2>
+<dl class="artspec">
+  <div><dt>Jahr</dt><dd>2024</dd></div>
+  <div><dt>Technik</dt><dd>Acryl und Kohle</dd></div>
+  <div><dt>Material</dt><dd>Leinwand auf Keilrahmen</dd></div>
+  <div><dt>Maße</dt><dd>100 × 70 cm</dd></div>
+</dl>
+```
+
+**Mehr oder weniger Bilder pro Werk**
+
+- Nur ein Bild: den Block `<div class="artwork__more"> … </div>` komplett
+  löschen (Werk 02 zeigt, wie das aussieht)
+- Zwei Bilder: eine der beiden `<figure>` darin löschen (siehe Werk 03)
+- Drei Bilder: so lassen, wie Werk 01 es zeigt
+
+**Weiteres Werk anlegen:** einen kompletten `<article class="artwork reveal">
+… </article>`-Block kopieren, darunter einfügen und die Nummer in
+`<div class="artwork__num">` hochzählen.
+
+**Bildtipps:** hochkant oder quer ist beides in Ordnung — das Werk wird nie
+angeschnitten. Fotografiere frontal und beschneide auf das Werk selbst, ohne
+Wand und Rahmen drumherum. 1500–2500 Pixel an der langen Kante genügen.
 
 ### 2. Projekt 4 und Projekt 5
 

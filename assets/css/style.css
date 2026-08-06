@@ -627,6 +627,92 @@ figcaption {
   }
 }
 
+/* --- Kunstwerke ----------------------------------------------------------- */
+/* Ein Werk = grosses Bild links, Titel und Werkangaben rechts daneben. */
+.artwork {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--gutter);
+  align-items: start;
+  margin-top: 72px;
+  padding-top: 72px;
+  border-top: 1px solid var(--line);
+}
+.artwork:first-of-type {
+  margin-top: 56px;
+  padding-top: 0;
+  border-top: none;
+}
+/* Kunstwerke werden nie beschnitten: volles Bild, eigenes Seitenverhältnis. */
+.artwork figure img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+  background: none;
+}
+.artwork__more figure img {
+  max-height: 38vh;
+}
+
+/* Zusatzbilder unter dem Hauptbild, nebeneinander */
+.artwork__more {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gutter);
+  margin-top: var(--gutter);
+  align-items: start;
+}
+.artwork__num {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.artwork__info h2 {
+  text-wrap: balance;
+}
+.artwork__info .prose {
+  margin-top: 18px;
+}
+
+/* Werkangaben: Jahr, Technik, Material, Masse */
+.artspec {
+  margin-top: 26px;
+  border-top: 1px solid var(--line);
+}
+.artspec div {
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.artspec dt {
+  font-size: var(--fs-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 5px;
+}
+.artspec dd {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+}
+
+@media (max-width: 900px) {
+  .artwork {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 56px;
+    padding-top: 56px;
+  }
+}
+@media (max-width: 560px) {
+  .artwork__more {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* --- Projektkacheln (Übersicht / Weiter) ---------------------------------- */
 .projcard {
   background: var(--surface);
@@ -748,6 +834,10 @@ figcaption {
   }
   /* Platzhalter-Kacheln bleiben ruhig */
   .projcard--soon figure:hover img {
+    transform: none;
+  }
+  /* Kunstwerke ebenfalls: ein Zoom würde das Werk beschneiden */
+  .artwork figure:hover img {
     transform: none;
   }
 
