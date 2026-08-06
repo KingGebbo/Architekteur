@@ -457,7 +457,10 @@ figcaption {
   line-height: 1.7;
   padding-top: 10px;
   background: var(--paper);
-  max-width: 62ch;
+  /* Die Zeile bricht bei 62 Zeichen, die Fläche geht aber über die volle
+     Breite. Nur so deckt sie beim Hover-Zoom das nach unten wachsende Bild
+     lückenlos ab — mit max-width bliebe rechts daneben ein Streifen sichtbar. */
+  padding-right: max(0px, calc(100% - 62ch));
 }
 
 .figure-full {
