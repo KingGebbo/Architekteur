@@ -80,9 +80,17 @@
       if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
     });
 
+    /* Der Zoomschritt richtet sich nach der Staerke der Geste. Trackpads
+       feuern viele kleine Ereignisse, ein Mausrad wenige grosse — ohne diese
+       Umrechnung springt das Bild auf dem Trackpad sofort auf Maximum. */
     stage.addEventListener('wheel', function (e) {
       e.preventDefault();
-      zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.18 : 1 / 1.18);
+      var d = e.deltaY;
+      if (e.deltaMode === 1) d *= 16;            // Zeilen statt Pixel
+      else if (e.deltaMode === 2) d *= 400;      // Seiten statt Pixel
+      var factor = Math.exp(-d * 0.0016);
+      factor = Math.min(1.14, Math.max(1 / 1.14, factor));
+      zoomAt(e.clientX, e.clientY, factor);
     }, { passive: false });
 
     stage.addEventListener('dblclick', function (e) {
@@ -111,7 +119,7 @@
     stage.addEventListener('touchmove', function (e) {
       if (e.touches.length !== 2 || !pinchStart) return;
       e.preventDefault();
-      var f = dist(e.touches) / pinchStart;
+      var f = Math.pow(dist(e.touches) / pinchStart, 0.85);
       var mid = {
         clientX: (e.touches[0].clientX + e.touches[1].clientX) / 2,
         clientY: (e.touches[0].clientY + e.touches[1].clientY) / 2
