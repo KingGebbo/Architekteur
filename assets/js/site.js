@@ -52,7 +52,7 @@
 
   var overlay, stage, image, closeBtn, lastFocus;
   var scale = 1, minScale = 1, x = 0, y = 0;
-  var dragging = false, startX = 0, startY = 0, moved = false;
+  var dragging = false, startX = 0, startY = 0;
   var pinchStart = 0, pinchScale = 1;
 
   function build() {
@@ -70,10 +70,10 @@
     image = overlay.querySelector('img');
     closeBtn = overlay.querySelector('.viewer__close');
 
+    /* Nur der Schliessen-Knopf und Esc schliessen. Ein Klick auf den
+       Hintergrund darf es nicht: Nach dem Ziehen loest das Loslassen der
+       Maustaste ein Klick-Ereignis aus und der Betrachter fiele sofort zu. */
     closeBtn.addEventListener('click', close);
-    overlay.addEventListener('click', function (e) {
-      if (e.target === overlay || e.target === stage) close();
-    });
     document.addEventListener('keydown', function (e) {
       if (!overlay.classList.contains('is-open')) return;
       if (e.key === 'Escape') close();
@@ -99,14 +99,14 @@
     });
 
     stage.addEventListener('pointerdown', function (e) {
-      dragging = true; moved = false;
+      dragging = true;
       startX = e.clientX - x; startY = e.clientY - y;
       stage.setPointerCapture(e.pointerId);
     });
     stage.addEventListener('pointermove', function (e) {
       if (!dragging) return;
       x = e.clientX - startX; y = e.clientY - startY;
-      moved = true; apply();
+      apply();
     });
     ['pointerup', 'pointercancel'].forEach(function (t) {
       stage.addEventListener(t, function () { dragging = false; });
