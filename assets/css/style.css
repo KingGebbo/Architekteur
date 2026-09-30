@@ -1090,6 +1090,15 @@ html.viewer-open {
   pointer-events: none;
   padding: 0 20px;
 }
+/* Solange die scharfe Fassung laedt, steht die kleine an ihrer Stelle. Ein
+   kurzer Hinweis erklaert, warum das Bild einen Moment spaeter nachschaerft. */
+.viewer__hint::after {
+  content: '';
+}
+.viewer.is-loading .viewer__hint::after {
+  content: ' · Scharfe Fassung lädt';
+  color: var(--accent);
+}
 @media (max-width: 560px) {
   .viewer__hint {
     display: none;

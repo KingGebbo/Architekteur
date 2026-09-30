@@ -157,19 +157,45 @@
     scale = minScale; x = 0; y = 0; apply();
   }
 
-  function open(src, alt) {
+  /* Die grosse Fassung braucht einen Moment. Darum erscheint zuerst das
+     bereits geladene Bild aus der Bildstrecke und wird ausgetauscht, sobald
+     die scharfe Fassung im Zwischenspeicher liegt — so bleibt der Betrachter
+     nie leer und das Austauschen ist nicht zu sehen. */
+  var laufendeNummer = 0;
+
+  function open(kleinerSrc, grosserSrc, alt) {
     if (!overlay) build();
-    image.src = src;
+    var nummer = ++laufendeNummer;
     image.alt = alt || '';
+    image.src = kleinerSrc || grosserSrc;
     lastFocus = document.activeElement;
     overlay.classList.add('is-open');
+    overlay.classList.toggle('is-loading', !!kleinerSrc && grosserSrc !== kleinerSrc);
     document.documentElement.classList.add('viewer-open');
     reset();
     closeBtn.focus();
+
+    if (!grosserSrc || grosserSrc === kleinerSrc) {
+      overlay.classList.remove('is-loading');
+      return;
+    }
+    var vorlader = new Image();
+    vorlader.onload = function () {
+      if (nummer !== laufendeNummer) return;   // inzwischen anderes Bild geoeffnet
+      image.src = grosserSrc;
+      overlay.classList.remove('is-loading');
+    };
+    vorlader.onerror = function () {
+      if (nummer !== laufendeNummer) return;
+      overlay.classList.remove('is-loading');
+    };
+    vorlader.src = grosserSrc;
   }
 
   function close() {
+    laufendeNummer++;
     overlay.classList.remove('is-open');
+    overlay.classList.remove('is-loading');
     document.documentElement.classList.remove('viewer-open');
     image.src = '';
     if (lastFocus && lastFocus.focus) lastFocus.focus();
@@ -182,7 +208,17 @@
     plate.setAttribute('role', 'button');
     plate.setAttribute('aria-label', 'Vergrößert ansehen: ' + (img.alt || 'Zeichnung'));
     function launch() {
-      open(plate.getAttribute('data-zoom') || img.currentSrc || img.src, img.alt);
+      var klein = img.currentSrc || img.src;
+      var gross = plate.getAttribute('data-zoom') || klein;
+      /* Die sehr grosse Fassung (9600 px) kommt nur auf Zeigergeraeten mit
+         breitem Fenster zum Einsatz. Handys und Tablets koennen ein Bild
+         dieser Groesse nicht mehr entschluesseln und zeigen dann nichts an —
+         auf ihrem kleinen Schirm bringt sie ohnehin keinen Gewinn. */
+      var hd = plate.getAttribute('data-zoom-hd');
+      if (hd && window.matchMedia('(min-width: 900px) and (pointer: fine)').matches) {
+        gross = hd;
+      }
+      open(klein, gross, img.alt);
     }
     plate.addEventListener('click', launch);
     plate.addEventListener('keydown', function (e) {
