@@ -282,29 +282,41 @@
     if (next) next.addEventListener('click', function () { go(index + 1); });
 
     /* Ziehen mit gedrueckter Maustaste. Waehrend des Ziehens wird das
-       Einrasten abgeschaltet, sonst kaempft es gegen die Bewegung. */
-    var dragging = false, startX = 0, startScroll = 0, moved = 0;
+       Einrasten abgeschaltet, sonst kaempft es gegen die Bewegung.
+       Der Zeiger wird erst eingefangen, wenn wirklich gezogen wird — sonst
+       landet ein einfacher Klick auf dem Rahmen statt auf dem Bild und die
+       Zeichnung liesse sich nicht mehr vergroessern. */
+    var dragging = false, gefangen = false, zeiger = null;
+    var startX = 0, startScroll = 0, moved = 0;
 
     track.addEventListener('pointerdown', function (e) {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
-      dragging = true; moved = 0;
+      dragging = true; gefangen = false; moved = 0; zeiger = e.pointerId;
       startX = e.clientX;
       startScroll = track.scrollLeft;
-      track.classList.add('is-dragging');
-      track.setPointerCapture(e.pointerId);
     });
     track.addEventListener('pointermove', function (e) {
       if (!dragging) return;
       var dx = e.clientX - startX;
       if (Math.abs(dx) > moved) moved = Math.abs(dx);
+      if (!gefangen) {
+        if (moved <= 4) return;
+        gefangen = true;
+        track.classList.add('is-dragging');
+        try { track.setPointerCapture(zeiger); } catch (fehler) {}
+      }
       track.scrollLeft = startScroll - dx;
     });
     ['pointerup', 'pointercancel'].forEach(function (type) {
       track.addEventListener(type, function () {
         if (!dragging) return;
         dragging = false;
-        track.classList.remove('is-dragging');
-        go(nearest());
+        if (gefangen) {
+          try { track.releasePointerCapture(zeiger); } catch (fehler) {}
+          track.classList.remove('is-dragging');
+          go(nearest());
+        }
+        gefangen = false;
       });
     });
     /* Nach dem Ziehen keinen Klick auslösen */
