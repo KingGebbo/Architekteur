@@ -255,7 +255,16 @@
       var i = nearest();
       if (i === index && caption && caption.textContent) return;
       index = i;
-      if (caption) caption.textContent = slides[i].getAttribute('data-caption') || '';
+      if (caption) {
+        caption.textContent = slides[i].getAttribute('data-caption') || '';
+        /* Zeichnungen lassen sich vergroessern — das steht dann dabei */
+        if (slides[i].querySelector('[data-zoom]')) {
+          var hinweis = document.createElement('span');
+          hinweis.className = 'plate__hint';
+          hinweis.textContent = 'Zum Vergrößern klicken';
+          caption.appendChild(hinweis);
+        }
+      }
       dots.forEach(function (d, j) {
         d.classList.toggle('is-active', j === i);
         d.setAttribute('aria-current', j === i ? 'true' : 'false');
