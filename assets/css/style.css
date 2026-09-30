@@ -873,6 +873,22 @@ figcaption {
     transform: none;
   }
 
+  /* Bildstrecke: gleicher Zoom wie bei den uebrigen Bildern */
+  .slider__slide {
+    overflow: hidden;
+  }
+  .slider__slide img {
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .slider__viewport:hover .slider__slide img {
+    transform: scale(1.03);
+  }
+  /* Beim Ziehen ruhig bleiben, sonst wackelt das Bild unter dem Zeiger */
+  .slider__track.is-dragging .slider__slide img {
+    transform: none;
+    transition: none;
+  }
+
   /* Textkästen: leichtes Anheben statt Zoom-Schnitt. */
   .cell,
   .factsheet div {
@@ -926,6 +942,8 @@ figcaption {
   .projcard:hover img,
   figure img,
   figure:hover img,
+  .slider__slide img,
+  .slider__viewport:hover .slider__slide img,
   .cell,
   .cell:hover,
   .factsheet div,
