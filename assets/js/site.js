@@ -190,3 +190,125 @@
     });
   });
 })();
+
+/* Bildstrecke — ziehen mit der Maus, Pfeile am Rand, Punkte als Fortschritt.
+   Auf Touch uebernimmt das native Wischen, dort greift nichts davon ein. */
+(function () {
+  'use strict';
+
+  var sliders = document.querySelectorAll('[data-slider]');
+  if (!sliders.length) return;
+
+  var reduce =
+    window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  sliders.forEach(function (slider) {
+    var track = slider.querySelector('.slider__track');
+    var slides = slider.querySelectorAll('.slider__slide');
+    if (!track || slides.length < 2) return;
+
+    var prev = slider.querySelector('.slider__nav--prev');
+    var next = slider.querySelector('.slider__nav--next');
+    var caption = slider.querySelector('.slider__caption');
+    var dotBox = slider.querySelector('.slider__dots');
+    var dots = [];
+    var index = 0;
+
+    if (dotBox) {
+      slides.forEach(function (slide, i) {
+        var d = document.createElement('button');
+        d.type = 'button';
+        d.className = 'slider__dot';
+        d.setAttribute('aria-label', 'Bild ' + (i + 1) + ' von ' + slides.length);
+        d.addEventListener('click', function () { go(i); });
+        dotBox.appendChild(d);
+        dots.push(d);
+      });
+    }
+
+    function go(i) {
+      i = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({
+        left: slides[i].offsetLeft - track.offsetLeft,
+        behavior: reduce ? 'auto' : 'smooth'
+      });
+    }
+
+    function nearest() {
+      var mid = track.scrollLeft + track.clientWidth / 2;
+      var best = 0, bestDist = Infinity;
+      slides.forEach(function (s, i) {
+        var c = s.offsetLeft - track.offsetLeft + s.offsetWidth / 2;
+        var d = Math.abs(c - mid);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      return best;
+    }
+
+    function sync() {
+      var i = nearest();
+      if (i === index && caption && caption.textContent) return;
+      index = i;
+      if (caption) caption.textContent = slides[i].getAttribute('data-caption') || '';
+      dots.forEach(function (d, j) {
+        d.classList.toggle('is-active', j === i);
+        d.setAttribute('aria-current', j === i ? 'true' : 'false');
+      });
+      if (prev) prev.disabled = i === 0;
+      if (next) next.disabled = i === slides.length - 1;
+    }
+
+    var ticking = false;
+    track.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { ticking = false; sync(); });
+    });
+
+    if (prev) prev.addEventListener('click', function () { go(index - 1); });
+    if (next) next.addEventListener('click', function () { go(index + 1); });
+
+    /* Ziehen mit gedrueckter Maustaste. Waehrend des Ziehens wird das
+       Einrasten abgeschaltet, sonst kaempft es gegen die Bewegung. */
+    var dragging = false, startX = 0, startScroll = 0, moved = 0;
+
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      dragging = true; moved = 0;
+      startX = e.clientX;
+      startScroll = track.scrollLeft;
+      track.classList.add('is-dragging');
+      track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > moved) moved = Math.abs(dx);
+      track.scrollLeft = startScroll - dx;
+    });
+    ['pointerup', 'pointercancel'].forEach(function (type) {
+      track.addEventListener(type, function () {
+        if (!dragging) return;
+        dragging = false;
+        track.classList.remove('is-dragging');
+        go(nearest());
+      });
+    });
+    /* Nach dem Ziehen keinen Klick auslösen */
+    track.addEventListener('click', function (e) {
+      if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; }
+    }, true);
+    track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+    track.tabIndex = 0;
+    track.setAttribute('role', 'group');
+    track.setAttribute('aria-label', 'Bildstrecke, ' + slides.length + ' Bilder');
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); }
+    });
+
+    sync();
+  });
+})();

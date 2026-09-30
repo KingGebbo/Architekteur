@@ -1077,3 +1077,181 @@ html.viewer-open {
     display: none;
   }
 }
+
+/* --- Bildstrecke ---------------------------------------------------------- */
+/* Mehrere Bilder nebeneinander, per Ziehen oder Pfeil durchblaettern.
+   Grundlage ist natives Scroll-Einrasten — auf Touch also ohne JavaScript. */
+.slider {
+  margin-top: 48px;
+}
+.slider__viewport {
+  position: relative;
+}
+.slider__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  background: var(--fill);
+  cursor: grab;
+}
+.slider__track::-webkit-scrollbar {
+  display: none;
+}
+.slider__track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+.slider__slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+}
+.slider__slide img {
+  width: 100%;
+  /* height ist noetig: sonst gewinnt das height-Attribut des Bildes */
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: var(--fill);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.slider__slide img.fit-contain {
+  object-fit: contain;
+  background: var(--surface);
+}
+
+/* Pfeile: erscheinen beim Ueberfahren, ruhen sonst */
+.slider__nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 72px;
+  /* Ruhend nicht anklickbar, damit das Ziehen bis an den Rand moeglich bleibt */
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  color: var(--ink);
+}
+.slider:hover .slider__nav,
+.slider:focus-within .slider__nav {
+  opacity: 1;
+  pointer-events: auto;
+}
+.slider__nav[disabled] {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+.slider__nav--prev {
+  left: 0;
+}
+.slider__nav--next {
+  right: 0;
+}
+.slider__nav span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(244, 243, 241, 0.92);
+  box-shadow: 0 2px 14px rgba(10, 10, 10, 0.16);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.slider__nav:hover span {
+  background: #fff;
+  transform: scale(1.06);
+}
+.slider__nav span::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+}
+.slider__nav--prev span::before {
+  transform: rotate(-135deg);
+  margin-left: 3px;
+}
+.slider__nav--next span::before {
+  transform: rotate(45deg);
+  margin-right: 3px;
+}
+
+/* Fuss: Bildunterschrift links, Fortschritt rechts */
+.slider__foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 10px;
+}
+.slider__caption {
+  font-size: var(--fs-micro);
+  color: var(--gray-400);
+  line-height: 1.7;
+  max-width: 62ch;
+  min-height: calc(var(--fs-micro) * 1.7);
+}
+.slider__dots {
+  display: flex;
+  gap: 6px;
+  flex: none;
+  padding-top: 6px;
+}
+.slider__dot {
+  width: 22px;
+  height: 2px;
+  padding: 0;
+  border: none;
+  background: var(--line);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.slider__dot:hover {
+  background: var(--gray-400);
+}
+.slider__dot.is-active {
+  background: var(--accent);
+}
+
+@media (hover: none) {
+  /* Ohne Mauszeiger sind die Pfeile dauerhaft sichtbar, aber zurueckhaltend */
+  .slider__nav {
+    opacity: 0.85;
+    pointer-events: auto;
+    width: 56px;
+  }
+  .slider__nav span {
+    width: 38px;
+    height: 38px;
+  }
+}
+@media (max-width: 560px) {
+  .slider__foot {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .slider__dots {
+    padding-top: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slider__track {
+    scroll-behavior: auto;
+  }
+  .slider__nav span {
+    transition: none;
+  }
+}
