@@ -1148,10 +1148,6 @@ html.viewer-open {
   opacity: 1;
   pointer-events: auto;
 }
-.slider__nav[disabled] {
-  opacity: 0 !important;
-  pointer-events: none;
-}
 .slider__nav--prev {
   left: 0;
 }

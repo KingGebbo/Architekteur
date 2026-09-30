@@ -227,11 +227,16 @@
       });
     }
 
-    function go(i) {
-      i = Math.max(0, Math.min(slides.length - 1, i));
+    /* Im Kreis: vom ersten Bild nach links kommt das letzte, vom letzten
+       nach rechts wieder das erste. Beim Umschlag wird gesprungen statt
+       gescrollt — sonst rauscht die ganze Strecke durchs Bild. */
+    function go(i, snap) {
+      var wrap = i < 0 || i > slides.length - 1;
+      if (i < 0) i = slides.length - 1;
+      else if (i > slides.length - 1) i = 0;
       track.scrollTo({
         left: slides[i].offsetLeft - track.offsetLeft,
-        behavior: reduce ? 'auto' : 'smooth'
+        behavior: reduce || wrap || snap ? 'auto' : 'smooth'
       });
     }
 
@@ -255,8 +260,6 @@
         d.classList.toggle('is-active', j === i);
         d.setAttribute('aria-current', j === i ? 'true' : 'false');
       });
-      if (prev) prev.disabled = i === 0;
-      if (next) next.disabled = i === slides.length - 1;
     }
 
     var ticking = false;
