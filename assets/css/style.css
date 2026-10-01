@@ -940,6 +940,13 @@ figcaption {
   .cell--dark:hover {
     box-shadow: 0 12px 32px rgba(10, 10, 10, 0.28);
   }
+  /* Das Siegel des rechten Kastens ragt über den linken hinüber. Beim
+     Überfahren hebt sich der linke Kasten an — das Siegel verschwände dann
+     darunter. Der rechte Kasten liegt deshalb immer über dem linken. */
+  .cell--siegel + .cell--siegel,
+  .cell--siegel + .cell--siegel:hover {
+    z-index: 2;
+  }
 
   /* Schlagworte (Software, Handwerk, Sprachen) */
   .tag {
