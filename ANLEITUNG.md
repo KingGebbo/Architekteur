@@ -27,8 +27,7 @@ und hat ein gültiges HTTPS-Zertifikat (das Schloss-Symbol im Browser).
 | Profil     | `architekteur.vercel.app`                          |
 | Projekt 01 | `architekteur.vercel.app/projekt-1-gut-melb`       |
 | Projekt 02 | `architekteur.vercel.app/projekt-2-kunsthof`       |
-| Projekt 03 | `architekteur.vercel.app/projekt-3-knitthotel`     |
-| Projekt 04 | `architekteur.vercel.app/projekt-4`                |
+| Projekt 03 | `architekteur.vercel.app/projekt-3`                |
 | Kunst      | `architekteur.vercel.app/kunst`                    |
 | Kontakt    | `architekteur.vercel.app/kontakt`                  |
 
@@ -88,8 +87,7 @@ innerhalb von etwa 30 Sekunden neu. Du musst nichts weiter tun.
    | Startseite / Profil           | `index.html`                |
    | Projekt 1, Gut Melb           | `projekt-1-gut-melb.html`   |
    | Projekt 2, Kunsthof           | `projekt-2-kunsthof.html`   |
-   | Projekt 3, Knitthotel         | `projekt-3-knitthotel.html` |
-   | Projekt 4 (Platzhalter)       | `projekt-4.html`            |
+   | Projekt 3 (Platzhalter)       | `projekt-3.html`            |
    | Kunst, persönliche Arbeiten   | `kunst.html`                |
    | Kontakt, Impressum            | `kontakt.html`              |
    | Farben, Schrift, Abstände     | `assets/css/style.css`      |
@@ -180,19 +178,22 @@ So sieht ein ausgefülltes Werk aus:
 angeschnitten. Fotografiere frontal und beschneide auf das Werk selbst, ohne
 Wand und Rahmen drumherum. 1500–2500 Pixel an der langen Kante genügen.
 
-### 2. Projekt 4
+### 2. Projekt 3
 
-Die Seite steht als Gerüst bereit (`projekt-4.html`). Am einfachsten: den
-Aufbau von `projekt-3-knitthotel.html` kopieren und die Texte ersetzen.
+Die Seite steht als Gerüst bereit (`projekt-3.html`). Am einfachsten: den
+Aufbau von `projekt-2-kunsthof.html` kopieren und die Texte ersetzen.
 
-### 3. Modulnummer beim Knitthotel prüfen
+### 3. Knitthotel wieder aufnehmen
 
-In der Dokumentation stehen zwei verschiedene Angaben: die zweite Seite nennt
-„BA 3.4.2 Entwurfsatelier IV, 4. Semester“, das Impressum auf der letzten Seite
-„BA 3.3.2 Entwurfsatelier III, HS 2024/2025, 3. Semester“. Auf der Website steht
-die Angabe aus dem Impressum, weil sie zur Aufgabenstellung im Dokument passt.
-Falls das doch anders war: in `projekt-3-knitthotel.html` an zwei Stellen
-korrigieren (Faktenblatt oben und Nachweise unten).
+Das Knitthotel-Projekt ist von der Seite genommen, aber nicht verloren: Der
+komplette Stand liegt im Zweig `archiv/knitthotel`. Sag Bescheid, wenn du
+daran weiterarbeiten willst — dann wird es zurückgeholt und überarbeitet.
+
+Zur Modulnummer, falls es so weit ist: In der Dokumentation standen zwei
+verschiedene Angaben — die zweite Seite nennt „BA 3.4.2 Entwurfsatelier IV,
+4. Semester“, das Impressum auf der letzten Seite „BA 3.3.2 Entwurfsatelier
+III, HS 2024/2025, 3. Semester“. Auf der Website stand die Angabe aus dem
+Impressum, weil sie zur Aufgabenstellung im Dokument passt.
 
 ---
 

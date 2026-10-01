@@ -19,8 +19,7 @@ Reines HTML, CSS und rund 50 Zeilen JavaScript.
 | Profil     | `index.html`                 | vollständig                     |
 | Projekt 01 | `projekt-1-gut-melb.html`    | vollständig                     |
 | Projekt 02 | `projekt-2-kunsthof.html`    | vollständig                     |
-| Projekt 03 | `projekt-3-knitthotel.html`  | vollständig                     |
-| Projekt 04 | `projekt-4.html`             | Platzhalter                     |
+| Projekt 03 | `projekt-3.html`             | Platzhalter                     |
 | Kunst      | `kunst.html`                 | Gerüst, Werke folgen            |
 | Kontakt    | `kontakt.html`               | inkl. Impressum und Datenschutz |
 | 404        | `404.html`                   | —                               |
@@ -35,7 +34,6 @@ assets/
   img/profil/          Porträt und Freihandzeichnungen
   img/gut-melb/        Projekt 01 — Gut Melb
   img/kunsthof/        Projekt 02 — Kunsthof
-  img/knitthotel/      Projekt 03 — Knitthotel
   favicon.svg          Signet, Bordeaux mit „N·S", abgerundet
 ```
 
@@ -116,7 +114,15 @@ Sarah Neidhold-Lizarraga und Nicolai Schwarz, Modul BA 3.5.1 — Technischer
 Ausbau & energieeffizientes Bauen, HS 2025/26. Betreuung: Prof. Swen Geiss,
 M.A. Anna Marschenko.
 
-Projekt 03: „Knitthotel — Bergische Kaserne", Modul BA 3.3.2 Entwurfsatelier III,
-HS 2024/25. Betreuung: Prof. Benedikt Stahl, M.A. Avila Dietrich. Team: Deborah
-Filipa Moreira Freitas, Luis Bongardt, Maria Nickenig, Martin Behrendt, Nicolai
-Schwarz, Sarah Becker.
+## Archiv
+
+Projekt 03 „Knitthotel — Bergische Kaserne" war bis zum 01.10.2026
+veröffentlicht und wurde für eine spätere Überarbeitung von der Seite
+genommen. Der vollständige Stand — Seite und alle Bilder — liegt im Zweig
+**`archiv/knitthotel`**.
+
+Zurückholen:
+
+```bash
+git checkout archiv/knitthotel -- projekt-3-knitthotel.html assets/img/knitthotel/
+```
