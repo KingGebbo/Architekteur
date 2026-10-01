@@ -1259,6 +1259,30 @@ html.viewer-open {
 .slider--breit .slider__slide img {
   aspect-ratio: 2320 / 1500;
 }
+/* Behalten die Seiten ihr eigenes Format, folgt die Höhe des Felds der
+   sichtbaren Folie. Nichts wird angeschnitten, nichts steht in einem zu
+   großen Rahmen. Die Höhe setzt das Skript, hier steht nur der Übergang. */
+.slider--frei .slider__viewport {
+  overflow: hidden;
+  transition: height 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.slider--frei .slider__track {
+  align-items: flex-start;
+}
+/* In einer solchen Strecke trägt jedes Bild sein Seitenverhältnis selbst —
+   entweder über diese Klasse oder als Angabe am Bild. "aspect-ratio: auto"
+   taugt dafür nicht: Es löscht auch das Verhältnis, das der Browser sonst
+   aus den Bildmaßen im Markup ableitet, und die Folie wäre vor dem Laden
+   null Pixel hoch. */
+.slider__slide img.fit-breit {
+  aspect-ratio: 2320 / 1500;
+  object-fit: cover;
+}
+@media (prefers-reduced-motion: reduce) {
+  .slider--frei .slider__viewport {
+    transition: none;
+  }
+}
 
 /* Pfeile: erscheinen beim Ueberfahren, ruhen sonst */
 .slider__nav {
