@@ -1186,6 +1186,14 @@ html.viewer-open {
 .prozess .slider {
   margin-top: 0;
 }
+@media (min-width: 901px) {
+  /* Die Bildstrecke setzt auf Höhe der großen Überschrift an, nicht der
+     kleinen Zeile darüber. 45 px ist der gemessene Abstand von der Oberkante
+     der Textspalte bis zur Oberkante der Buchstaben. */
+  .prozess .slider {
+    margin-top: 45px;
+  }
+}
 .prozess__text .eyebrow {
   margin-bottom: 14px;
 }
