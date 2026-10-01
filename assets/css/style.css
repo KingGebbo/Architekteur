@@ -1170,12 +1170,13 @@ html.viewer-open {
 }
 
 /* --- Prozessblock --------------------------------------------------------- */
-/* Bildstrecke links, Text rechts. Darüber eine Trennlinie, damit die drei
+/* Text links, Bildstrecke rechts. Darüber eine Trennlinie, damit die drei
    Zugänge — Workshop, Umfrage, Tag vor Ort — als gleichwertige Blöcke
-   lesbar sind. */
+   lesbar sind. Der Text steht auch im Quelltext zuerst, deshalb stapelt
+   sich auf schmalen Schirmen von selbst die richtige Reihenfolge. */
 .prozess {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: 1fr 1.15fr;
   gap: var(--gutter);
   align-items: start;
   margin-top: 72px;
@@ -1193,10 +1194,6 @@ html.viewer-open {
     grid-template-columns: 1fr;
     margin-top: 56px;
     padding-top: 40px;
-  }
-  /* Auf schmalen Schirmen zuerst der Text, dann die Bilder dazu. */
-  .prozess__text {
-    order: -1;
   }
 }
 
