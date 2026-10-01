@@ -1248,6 +1248,10 @@ html.viewer-open {
 .slider--quer .slider__slide img {
   aspect-ratio: 2030 / 1500;
 }
+/* Hochformatige Seiten, etwa ein Flyer, brauchen ein stehendes Feld. */
+.slider--hoch .slider__slide img {
+  aspect-ratio: 3 / 4;
+}
 
 /* Pfeile: erscheinen beim Ueberfahren, ruhen sonst */
 .slider__nav {
