@@ -1242,12 +1242,11 @@ html.viewer-open {
   object-fit: contain;
   background: var(--surface);
 }
-/* Enthält eine Strecke Seiten unterschiedlichen Formats, bekommt sie ein
-   quadratisches Feld. Nichts wird angeschnitten; was fehlt, füllt die
-   Papierfläche. Sonst müsste ein hochformatiges Blatt im 16:10-Feld fast
-   die Hälfte seiner Höhe verlieren. */
-.slider--quadrat .slider__slide img {
-  aspect-ratio: 1 / 1;
+/* Eine Strecke aus gesetzten Seiten bekommt deren Seitenverhältnis als Feld.
+   Die Seiten füllen es dann randlos; wo ein einzelnes Blatt anders geschnitten
+   ist, wird es mittig angeschnitten statt mit Papier aufgefüllt. */
+.slider--quer .slider__slide img {
+  aspect-ratio: 2030 / 1500;
 }
 
 /* Pfeile: erscheinen beim Ueberfahren, ruhen sonst */
