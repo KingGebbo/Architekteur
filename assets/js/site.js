@@ -412,24 +412,8 @@
     var next = slider.querySelector('.slider__nav--next');
     var caption = slider.querySelector('.slider__caption');
     var dotBox = slider.querySelector('.slider__dots');
-    var viewport = slider.querySelector('.slider__viewport');
     var dots = [];
     var index = 0;
-
-    /* Duerfen die Seiten einer Strecke ihr eigenes Format behalten, folgt
-       die Hoehe des Felds der gerade sichtbaren Folie. So wird keine Seite
-       angeschnitten und keine steht in einem zu grossen Rahmen. */
-    var freieHoehe = slider.classList.contains('slider--frei');
-
-    function hoeheAnpassen() {
-      if (!freieHoehe || !viewport) return;
-      var h = slides[index].offsetHeight;
-      if (h) viewport.style.height = h + 'px';
-    }
-
-    if (freieHoehe) {
-      window.addEventListener('resize', hoeheAnpassen);
-    }
 
     if (dotBox) {
       slides.forEach(function (slide, i) {
@@ -485,7 +469,6 @@
         d.classList.toggle('is-active', j === i);
         d.setAttribute('aria-current', j === i ? 'true' : 'false');
       });
-      hoeheAnpassen();
     }
 
     var ticking = false;
