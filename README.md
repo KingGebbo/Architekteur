@@ -87,6 +87,24 @@ Guide ab: Markierter Text wird in Bordeaux gefärbt statt weiß auf Bordeaux.
   kein Formular. Die Seite lädt ausschließlich eigene Dateien.
 - **Performance** — Alle Bilder unter 500 KB, `loading="lazy"` unterhalb des
   ersten Bildschirms, Schriften mit `font-display: swap` und Preload.
+- **Planbetrachter** — Zeichnungen öffnen per Klick im Vollbild und lassen sich
+  zoomen und verschieben. Dafür gibt es zwei Wege:
+
+  | Markup | Verhalten |
+  | ------------------------------ | ------------------------------------- |
+  | `data-zoom` / `data-zoom-hd`   | Ein großes Einzelbild (bis 9600 px) |
+  | `data-kacheln`                 | Kachelsatz, mehrere Feinheitsstufen |
+
+  Der Kachelsatz funktioniert wie bei Kartendiensten: Der Plan liegt in fünf
+  Stufen von 1200 bis 19 200 px vor, zerlegt in Kacheln zu 1024 px. Geladen
+  wird nur, was gerade sichtbar ist, in der Feinheit, die die aktuelle
+  Vergrößerung braucht. Der Zoom endet genau dort, wo die feinste Stufe
+  aufgebraucht ist — unscharf wird es dadurch nie. Auf Handys und Tablets
+  bleibt es beim Einzelbild.
+
+  Erzeugt wurde der Satz aus dem Vektor-PDF: die feinste Stufe streifenweise
+  mit `pdftoppm -r 460.8`, die gröberen daraus heruntergerechnet.
+  Ordnerform: `<ordner>/<stufe>/<spalte>-<zeile>.webp`.
 
 ## Lokal ansehen
 

@@ -1085,6 +1085,29 @@ html.viewer-open {
 .viewer__stage:active {
   cursor: grabbing;
 }
+.viewer__blatt {
+  position: relative;
+  transform-origin: center center;
+  will-change: transform;
+  line-height: 0;
+}
+/* Kachelsatz: die einzelnen Stücke liegen auf einer weißen Fläche, damit
+   während des Nachladens nie der dunkle Hintergrund durchblitzt. */
+.viewer__kacheln {
+  position: absolute;
+  inset: 0;
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--line);
+}
+.viewer__kacheln:empty {
+  display: none;
+}
+.viewer__kachel {
+  position: absolute;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
 .viewer__stage img {
   max-width: 96vw;
   max-height: 88vh;
@@ -1094,6 +1117,12 @@ html.viewer-open {
   -webkit-user-drag: none;
   background: var(--surface);
   box-shadow: 0 0 0 1px var(--line);
+}
+.viewer__stage .viewer__kachel {
+  max-width: none;
+  max-height: none;
+  background: none;
+  box-shadow: none;
 }
 .viewer__close {
   position: absolute;

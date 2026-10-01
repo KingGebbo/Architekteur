@@ -50,10 +50,20 @@
   var plates = document.querySelectorAll('[data-zoom]');
   if (!plates.length) return;
 
-  var overlay, stage, image, closeBtn, lastFocus;
-  var scale = 1, minScale = 1, x = 0, y = 0;
+  var overlay, stage, blatt, image, kachelfeld, closeBtn, lastFocus;
+  var scale = 1, minScale = 1, maxScale = 12, x = 0, y = 0;
   var dragging = false, startX = 0, startY = 0;
   var pinchStart = 0, pinchScale = 1;
+
+  /* Ein Kachelsatz ist ein Plan, der in viele kleine Bilder zerlegt wurde —
+     in mehreren Stufen, von grob bis sehr fein. Der Betrachter laedt immer
+     nur die Kacheln, die gerade zu sehen sind, und zwar in der Feinheit, die
+     die aktuelle Vergroesserung braucht. So bleibt die Zeichnung bis zur
+     tiefsten Stufe scharf, ohne dass je ein riesiges Bild geladen wird. */
+  var satz = null;            // {ordner, breite, hoehe, kachel, stufen}
+  var blattW = 0, blattH = 0;
+  var kacheln = {};           // Schluessel -> img
+  var ausstehend = 0;
 
   function build() {
     overlay = document.createElement('div');
@@ -62,12 +72,16 @@
     overlay.setAttribute('aria-modal', 'true');
     overlay.setAttribute('aria-label', 'Zeichnung vergrößert');
     overlay.innerHTML =
-      '<div class="viewer__stage"><img alt=""></div>' +
+      '<div class="viewer__stage"><div class="viewer__blatt">' +
+      '<img alt=""><div class="viewer__kacheln"></div>' +
+      '</div></div>' +
       '<button class="viewer__close" type="button" aria-label="Schließen">Schließen</button>' +
       '<p class="viewer__hint">Ziehen zum Verschieben · Mausrad oder zwei Finger zum Zoomen · Esc schließt</p>';
     document.body.appendChild(overlay);
     stage = overlay.querySelector('.viewer__stage');
+    blatt = overlay.querySelector('.viewer__blatt');
     image = overlay.querySelector('img');
+    kachelfeld = overlay.querySelector('.viewer__kacheln');
     closeBtn = overlay.querySelector('.viewer__close');
 
     /* Nur der Schliessen-Knopf und Esc schliessen. Ein Klick auf den
@@ -137,12 +151,13 @@
   }
 
   function apply() {
-    image.style.transform =
+    blatt.style.transform =
       'translate(' + x + 'px,' + y + 'px) scale(' + scale + ')';
+    if (satz) kachelnZeichnen();
   }
 
   function zoomAt(cx, cy, factor) {
-    var next = Math.min(12, Math.max(minScale, scale * factor));
+    var next = Math.min(maxScale, Math.max(minScale, scale * factor));
     if (next === scale) return;
     var r = stage.getBoundingClientRect();
     var ox = cx - r.left - r.width / 2 - x;
@@ -157,21 +172,147 @@
     scale = minScale; x = 0; y = 0; apply();
   }
 
+  /* --- Kachelsatz ---------------------------------------------------- */
+
+  function stufenBreite(stufe) {
+    return satz.breite / Math.pow(2, satz.stufen - 1 - stufe);
+  }
+
+  function blattEinpassen() {
+    var r = stage.getBoundingClientRect();
+    var platzB = r.width * 0.96, platzH = r.height * 0.88;
+    var verhaeltnis = satz.breite / satz.hoehe;
+    blattW = platzB;
+    blattH = blattW / verhaeltnis;
+    if (blattH > platzH) { blattH = platzH; blattW = blattH * verhaeltnis; }
+    blatt.style.width = blattW + 'px';
+    blatt.style.height = blattH + 'px';
+    /* Weiter als bis zur tiefsten Stufe darf nicht gezoomt werden — ab dort
+       wuerden nur noch Pixel vergroessert und die Zeichnung wuerde unscharf. */
+    var dpr = window.devicePixelRatio || 1;
+    maxScale = Math.max(2, satz.breite / (blattW * dpr));
+  }
+
+  /* Die Kachelgrenzen muessen auf ganze Bildschirmpunkte fallen. Sonst
+     rundet der Browser jede Kachel fuer sich und zwischen zwei Nachbarn
+     bleibt ein haarfeiner heller Spalt stehen. Beide Nachbarn runden
+     denselben Grenzwert, deshalb passen sie danach exakt aneinander. */
+  function setzeKachel(el, stufe, spalte, zeile) {
+    var k = satz.kachel;
+    var breite = stufenBreite(stufe), hoehe = breite / (satz.breite / satz.hoehe);
+    var faktor = blattW / breite;
+    var g = scale * (window.devicePixelRatio || 1);
+    var links = Math.round(spalte * k * faktor * g) / g;
+    var rechts = Math.round(Math.min((spalte + 1) * k, breite) * faktor * g) / g;
+    var oben = Math.round(zeile * k * faktor * g) / g;
+    var unten = Math.round(Math.min((zeile + 1) * k, hoehe) * faktor * g) / g;
+    el.style.left = links + 'px';
+    el.style.top = oben + 'px';
+    el.style.width = (rechts - links) + 'px';
+    el.style.height = (unten - oben) + 'px';
+  }
+
+  function kachelAnlegen(stufe, spalte, zeile) {
+    var el = document.createElement('img');
+    el.className = 'viewer__kachel';
+    el.alt = '';
+    el.decoding = 'async';
+    el.style.zIndex = stufe;
+    setzeKachel(el, stufe, spalte, zeile);
+    ausstehend++;
+    el.onload = el.onerror = function () { ausstehend--; };
+    el.src = satz.ordner + '/' + stufe + '/' + spalte + '-' + zeile + '.webp';
+    kachelfeld.appendChild(el);
+    return el;
+  }
+
+  function sammeln(stufe, ziel, ganz) {
+    var k = satz.kachel;
+    var breite = stufenBreite(stufe), hoehe = breite / (satz.breite / satz.hoehe);
+    var spalten = Math.ceil(breite / k), zeilen = Math.ceil(hoehe / k);
+    var vonS = 0, bisS = spalten - 1, vonZ = 0, bisZ = zeilen - 1;
+    if (!ganz) {
+      /* Sichtbarer Ausschnitt, umgerechnet in Kachelnummern dieser Stufe. */
+      var r = blatt.getBoundingClientRect();
+      var s = stage.getBoundingClientRect();
+      var proKachel = (k * blattW / breite) * scale;   // Kachelbreite am Schirm
+      vonS = Math.max(0, Math.floor((s.left - r.left) / proKachel) - 1);
+      bisS = Math.min(spalten - 1, Math.ceil((s.right - r.left) / proKachel));
+      vonZ = Math.max(0, Math.floor((s.top - r.top) / proKachel) - 1);
+      bisZ = Math.min(zeilen - 1, Math.ceil((s.bottom - r.top) / proKachel));
+    }
+    for (var z = vonZ; z <= bisZ; z++) {
+      for (var sp = vonS; sp <= bisS; sp++) ziel[stufe + ':' + sp + '-' + z] = [stufe, sp, z];
+    }
+  }
+
+  function kachelnZeichnen() {
+    var dpr = window.devicePixelRatio || 1;
+    var noetig = blattW * scale * dpr;
+    var stufe = 0;
+    while (stufe < satz.stufen - 1 && stufenBreite(stufe) < noetig) stufe++;
+
+    var gebraucht = {};
+    sammeln(0, gebraucht, true);                 // grobe Stufe bleibt als Grund
+    if (stufe !== 0) sammeln(stufe, gebraucht, false);
+
+    Object.keys(gebraucht).forEach(function (schluessel) {
+      var t = gebraucht[schluessel];
+      if (!kacheln[schluessel]) kacheln[schluessel] = kachelAnlegen(t[0], t[1], t[2]);
+      else setzeKachel(kacheln[schluessel], t[0], t[1], t[2]);
+    });
+
+    /* Kacheln anderer Stufen erst wegnehmen, wenn die neuen geladen sind —
+       sonst blitzt beim Zoomen kurz die leere Flaeche durch. */
+    Object.keys(kacheln).forEach(function (schluessel) {
+      if (gebraucht[schluessel]) return;
+      var eigene = Number(schluessel.split(':')[0]);
+      if (eigene === stufe || eigene === 0 || ausstehend === 0) {
+        kacheln[schluessel].remove();
+        delete kacheln[schluessel];
+      }
+    });
+  }
+
+  function kachelnLeeren() {
+    Object.keys(kacheln).forEach(function (s) { kacheln[s].remove(); });
+    kacheln = {};
+    ausstehend = 0;
+  }
+
   /* Die grosse Fassung braucht einen Moment. Darum erscheint zuerst das
      bereits geladene Bild aus der Bildstrecke und wird ausgetauscht, sobald
      die scharfe Fassung im Zwischenspeicher liegt — so bleibt der Betrachter
      nie leer und das Austauschen ist nicht zu sehen. */
   var laufendeNummer = 0;
 
-  function open(kleinerSrc, grosserSrc, alt) {
+  function open(kleinerSrc, grosserSrc, alt, kachelsatz) {
     if (!overlay) build();
     var nummer = ++laufendeNummer;
-    image.alt = alt || '';
-    image.src = kleinerSrc || grosserSrc;
+    kachelnLeeren();
+    satz = kachelsatz || null;
     lastFocus = document.activeElement;
     overlay.classList.add('is-open');
-    overlay.classList.toggle('is-loading', !!kleinerSrc && grosserSrc !== kleinerSrc);
     document.documentElement.classList.add('viewer-open');
+
+    if (satz) {
+      /* Kachelsatz: kein einzelnes Bild, der Plan wird aus Kacheln gebaut. */
+      image.style.display = 'none';
+      blatt.setAttribute('aria-label', alt || '');
+      maxScale = 12;
+      blattEinpassen();
+      overlay.classList.remove('is-loading');
+      reset();
+      closeBtn.focus();
+      return;
+    }
+
+    image.style.display = '';
+    blatt.style.width = blatt.style.height = '';
+    maxScale = 12;
+    image.alt = alt || '';
+    image.src = kleinerSrc || grosserSrc;
+    overlay.classList.toggle('is-loading', !!kleinerSrc && grosserSrc !== kleinerSrc);
     reset();
     closeBtn.focus();
 
@@ -198,8 +339,17 @@
     overlay.classList.remove('is-loading');
     document.documentElement.classList.remove('viewer-open');
     image.src = '';
+    kachelnLeeren();
+    satz = null;
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
+
+  window.addEventListener('resize', function () {
+    if (!overlay || !overlay.classList.contains('is-open') || !satz) return;
+    kachelnLeeren();
+    blattEinpassen();
+    reset();
+  });
 
   plates.forEach(function (plate) {
     var img = plate.tagName === 'IMG' ? plate : plate.querySelector('img');
@@ -210,14 +360,28 @@
     function launch() {
       var klein = img.currentSrc || img.src;
       var gross = plate.getAttribute('data-zoom') || klein;
+      /* Ein Kachelsatz hat Vorrang: Er bleibt bis zur tiefsten Stufe scharf.
+         Auf Handys und Tablets bleibt es beim einzelnen Bild — dort lohnt
+         der Aufwand nicht und die Datenmenge waere unnoetig. */
+      var ordner = plate.getAttribute('data-kacheln');
+      var grossGeraet = window.matchMedia('(min-width: 900px) and (pointer: fine)').matches;
+      if (ordner && grossGeraet) {
+        var masse = (plate.getAttribute('data-kacheln-masse') || '').split('x');
+        open(null, null, img.alt, {
+          ordner: ordner,
+          breite: Number(masse[0]),
+          hoehe: Number(masse[1]),
+          kachel: Number(plate.getAttribute('data-kacheln-groesse')) || 1024,
+          stufen: Number(plate.getAttribute('data-kacheln-stufen')) || 5
+        });
+        return;
+      }
       /* Die sehr grosse Fassung (9600 px) kommt nur auf Zeigergeraeten mit
          breitem Fenster zum Einsatz. Handys und Tablets koennen ein Bild
          dieser Groesse nicht mehr entschluesseln und zeigen dann nichts an —
          auf ihrem kleinen Schirm bringt sie ohnehin keinen Gewinn. */
       var hd = plate.getAttribute('data-zoom-hd');
-      if (hd && window.matchMedia('(min-width: 900px) and (pointer: fine)').matches) {
-        gross = hd;
-      }
+      if (hd && grossGeraet) gross = hd;
       open(klein, gross, img.alt);
     }
     plate.addEventListener('click', launch);
