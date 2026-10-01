@@ -1169,6 +1169,37 @@ html.viewer-open {
   }
 }
 
+/* --- Prozessblock --------------------------------------------------------- */
+/* Bildstrecke links, Text rechts. Darüber eine Trennlinie, damit die drei
+   Zugänge — Workshop, Umfrage, Tag vor Ort — als gleichwertige Blöcke
+   lesbar sind. */
+.prozess {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--gutter);
+  align-items: start;
+  margin-top: 72px;
+  padding-top: 56px;
+  border-top: 1px solid var(--line);
+}
+.prozess .slider {
+  margin-top: 0;
+}
+.prozess__text .eyebrow {
+  margin-bottom: 14px;
+}
+@media (max-width: 900px) {
+  .prozess {
+    grid-template-columns: 1fr;
+    margin-top: 56px;
+    padding-top: 40px;
+  }
+  /* Auf schmalen Schirmen zuerst der Text, dann die Bilder dazu. */
+  .prozess__text {
+    order: -1;
+  }
+}
+
 /* --- Bildstrecke ---------------------------------------------------------- */
 /* Mehrere Bilder nebeneinander, per Ziehen oder Pfeil durchblaettern.
    Grundlage ist natives Scroll-Einrasten — auf Touch also ohne JavaScript. */
