@@ -1242,6 +1242,13 @@ html.viewer-open {
   object-fit: contain;
   background: var(--surface);
 }
+/* Enthält eine Strecke Seiten unterschiedlichen Formats, bekommt sie ein
+   quadratisches Feld. Nichts wird angeschnitten; was fehlt, füllt die
+   Papierfläche. Sonst müsste ein hochformatiges Blatt im 16:10-Feld fast
+   die Hälfte seiner Höhe verlieren. */
+.slider--quadrat .slider__slide img {
+  aspect-ratio: 1 / 1;
+}
 
 /* Pfeile: erscheinen beim Ueberfahren, ruhen sonst */
 .slider__nav {
